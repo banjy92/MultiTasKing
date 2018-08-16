@@ -8,6 +8,7 @@ TagManager:
   - PlayerObject
   - Platform
   - Dodge
+  - Obstacle
   layers:
   - Default
   - TransparentFX

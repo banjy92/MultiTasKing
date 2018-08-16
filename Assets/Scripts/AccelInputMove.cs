@@ -20,7 +20,11 @@ public class AccelInputMove : MonoBehaviour {
         //float moveVal = Input.acceleration.y
         float moveVal = baseMatrix.MultiplyVector(Input.acceleration).y;
         Vector3 direction = new Vector3(0, moveVal*speed, 0);
-        rb.velocity = direction;
+        if( !rb.isKinematic)
+        {
+            rb.velocity = direction;
+        }
+        
     }
     
     public void Calibrate()
@@ -30,5 +34,13 @@ public class AccelInputMove : MonoBehaviour {
         Matrix4x4 matrix = Matrix4x4.TRS(Vector3.zero, rotate, new Vector3(1.0f, 1.0f, 1.0f));
 
         baseMatrix = matrix.inverse;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Obstacle")
+        {
+            GameManager.TriggerGameOver();
+        }
     }
 }
